@@ -1,0 +1,34 @@
+version: '3'
+name: Rainbow
+
+services:
+  vitamin:
+    restart: always
+    image: vitamin:3
+    ports:
+      - "5001:5000"
+    networks:
+      - nginx_network
+
+  hoursart:
+    restart: always
+    image: hoursart:4
+    ports:
+      - "5002:5000"
+    networks:
+      - nginx_network
+
+  nginx:
+    restart: always
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      # - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - nginx_network
+
+networks:
+  nginx_network:
+    driver: bridge
