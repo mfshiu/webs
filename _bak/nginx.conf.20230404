@@ -1,4 +1,3 @@
-# Version 2, Update date: 2023/4/22, Add auravilla
 # Version 1, Update date: 2023/3/29, Release date: 2023/3/29
 # Version 0, Update date: 2023/3/9, Release date: 2023/3/9
 
@@ -10,30 +9,10 @@ http {
     sendfile on;
 
     upstream app_server {
-        server auravilla:5000;
-        server sleepad:5000;
         server gigooweb:5000;
         server hoursart:5000;
         server vitamin:5000;
     }
-
-    # server {
-    #     listen 80;
-    #     server_name api.whosleep.com.tw;
-    #     access_log on;
-
-    #     location / {
-    #         proxy_pass http://sleepad:5000;
-    #         proxy_set_header Host $host;
-    #         proxy_set_header X-Forwarded-Host $server_name;
-    #         proxy_set_header X-Real-IP $remote_addr;
-    #     }
-
-    #     location /.well-known/acme-challenge/8gRJhQJXf13hy3xepkYdt-5ubTjbq9vLACJk8vVZcnM {
-    #         add_header Content-Type text/plain;
-    #         return 200 '8gRJhQJXf13hy3xepkYdt-5ubTjbq9vLACJk8vVZcnM.qN5usgBXt-E5-4-ihjidSMJxjsJcZj5kTyzThzWxb0U';
-    #     }
-    # }
 
     server {
         listen 80 default_server;
@@ -41,47 +20,6 @@ http {
         return 301 https://$host$request_uri;
     }
 
-    # auravilla.gigoo.co
-    server {
-        listen 443 ssl;
-        server_name auravilla.gigoo.co; 
-        server_tokens off;
-        access_log on;
-
-        ssl_certificate /etc/letsencrypt/live/auravilla.gigoo.co/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/auravilla.gigoo.co/privkey.pem;
-        include /etc/letsencrypt/options-ssl-nginx.conf;
-        ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
-
-        location / {
-            proxy_pass http://auravilla:5000;
-            proxy_set_header Host $host;
-            proxy_set_header X-Forwarded-Host $server_name;
-            proxy_set_header X-Real-IP $remote_addr;
-        }
-    }
-
-    # api.whosleep.com.tw
-    server {
-        listen 443 ssl;
-        server_name api.whosleep.com.tw; 
-        server_tokens off;
-        access_log on;
-
-        ssl_certificate /etc/letsencrypt/live/api.whosleep.com.tw/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/api.whosleep.com.tw/privkey.pem;
-        include /etc/letsencrypt/options-ssl-nginx.conf;
-        ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
-
-        location / {
-            proxy_pass http://sleepad:5000;
-            proxy_set_header Host $host;
-            proxy_set_header X-Forwarded-Host $server_name;
-            proxy_set_header X-Real-IP $remote_addr;
-        }
-    }
-
-    # gigoo.co
     server {
         listen 443 ssl;
         server_name gigoo.co www.gigoo.co; 
@@ -101,7 +39,6 @@ http {
         }
     }
 
-    # hoursart.com
     server {
         listen 443 ssl;
         server_name hoursart.com www.hoursart.com; 
@@ -121,7 +58,6 @@ http {
         }
     }
 
-    # admin.tprai.org
     server {
         listen 443 ssl;
         server_name admin.tprai.org vitamin.gigoo.co; 
