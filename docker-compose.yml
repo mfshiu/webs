@@ -1,12 +1,14 @@
-version: '11'
+version: '13'
 name: Rainbow
 
 services:
   auravilla:
     restart: unless-stopped
-    image: mfshiu/aura-villa:6
+    image: mfshiu/aura-villa:9
     ports:
       - "5005:5000"
+    volumes:
+      - ./aura-villa/appearance:/app/static/appearance
     networks:
       - nginx_network
 
